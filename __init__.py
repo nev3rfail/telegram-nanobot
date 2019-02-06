@@ -11,8 +11,8 @@ import json
 
 bot_path = os.path.dirname(os.path.abspath(__file__))
 """We use patched pytelegrambotapi here with sendAnimation and video previews"""
-if os.path.is_dir(bot_path + '/pyTelegramBotApi'):
-    sys.path.insert(0, bot_path + '/pyTelegramBotAPI')
+if os.path.isdir(bot_path + '/../pyTelegramBotAPI'):
+    sys.path.insert(0, bot_path + '/../pyTelegramBotAPI')
 import telebot as telebot
 
 
@@ -29,7 +29,7 @@ sys.path.append(bot_path + '/plugins')
 loaded = {}
 if len(settings['plugins']):
     for plugin in settings['plugins']:
-        loaded[plugin] = importlib.import_module("text_vertical")
+        loaded[plugin] = importlib.import_module(plugin)
         loaded[plugin].register(bot)
 
 
