@@ -1,13 +1,10 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # encoding=utf8
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-import os
 import importlib
 import json
+import os
+import sys
 
 bot_path = os.path.dirname(os.path.abspath(__file__))
 """We use patched pytelegrambotapi here with sendAnimation and video previews"""
@@ -33,7 +30,6 @@ if len(settings['plugins']):
         loaded[plugin].register(bot)
 
 
-
 """Fallback inline handler loops through plugins and tries to get result to reply"""
 @bot.inline_handler(lambda query: True)
 def query_text(inline_query):
@@ -51,7 +47,7 @@ def query_text(inline_query):
                 try:
                     bot.answer_inline_query(inline_query.id, choices)
                 except Exception as e:
-                    print "Inline error:", e
+                    print("Inline error:", e)
             else:
                 return
 
