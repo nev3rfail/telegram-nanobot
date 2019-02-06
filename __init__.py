@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # encoding=utf8
 import sys
@@ -31,6 +31,29 @@ if len(settings['plugins']):
     for plugin in settings['plugins']:
         loaded[plugin] = importlib.import_module(plugin)
         loaded[plugin].register(bot)
+
+
+
+"""Fallback inline handler loops through plugins and tries to get result to reply"""
+@bot.inline_handler(lambda query: True)
+def query_text(inline_query):
+    if len(inline_query.query):
+        msgs = inline_query.query.split(" ")
+        message = " ".join(msgs)
+        if len(message):
+            choices = []
+            for name, plugin in loaded.iteritems():
+                if hasattr(plugin, "handle_inline"):
+                    result = plugin.handle_inline(message)
+                    if result:
+                        choices.append(result)
+            if len(choices):
+                try:
+                    bot.answer_inline_query(inline_query.id, choices)
+                except Exception as e:
+                    print "Inline error:", e
+            else:
+                return
 
 
 bot.polling()
