@@ -14,20 +14,23 @@ import telebot as telebot
 
 
 with open(bot_path + '/config.json') as json_file:
-    settings = json.loads(json_file.read())
+    config = json.loads(json_file.read())
 
 
 if __name__ != "__main__":
     raise Exception("This file should be executed, not imported.")
 
-bot = telebot.TeleBot(settings['telegram_token'])
+bot = telebot.TeleBot(config['telegram_token'])
 
 sys.path.append(bot_path + '/plugins')
 loaded = {}
-if len(settings['plugins']):
-    for plugin in settings['plugins']:
-        loaded[plugin] = importlib.import_module(plugin)
-        loaded[plugin].register(bot)
+if len(config['plugins']):
+    for plugin, plugin_config in config['plugins'].iteritems():
+        try:
+            loaded[plugin] = importlib.import_module(plugin)
+            loaded[plugin].register(bot=bot, config=plugin_config, debug=config['debug'])
+        except Exception as e:
+            print("Cannot load plugin {}".format(plugin), e)
 
 
 """Fallback inline handler loops through plugins and tries to get result to reply"""

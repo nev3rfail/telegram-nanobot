@@ -1,6 +1,7 @@
 #encoding: UTF-8
 
-def register(bot):
+def register( ** kwargs):
+    bot = kwargs['bot']
     @bot.message_handler(commands=['hello'])
     @bot.channel_post_handler(commands=['hello'])
     def send_welcome(message):

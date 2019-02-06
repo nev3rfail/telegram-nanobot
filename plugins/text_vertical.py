@@ -1,8 +1,10 @@
 #encoding: UTF-8
 from telebot import types
 
-def register(bot):
+
+def register(** kwargs):
     print("Loading vertical text plugin...")
+    bot = kwargs['bot']
     @bot.channel_post_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
     @bot.message_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
     @bot.message_handler(commands=['vertical', 'vert'])

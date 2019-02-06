@@ -4,9 +4,12 @@ from telebot import types
 import urllib2
 from util import Stupidcache
 
-
-def register(bot):
+debug = False
+def register(** kwargs):
     print("Loading through-rub currency converter plugin...")
+    bot = kwargs['bot']
+    if kwargs['debug'] == True:
+        debug = True
     @bot.channel_post_handler(func=lambda m: m.text.startswith("!convert ") or m.text.startswith('!curr '))
     @bot.message_handler(func=lambda m: m.text.startswith("!convert ") or m.text.startswith('!curr '))
     @bot.message_handler(commands=['convert', 'curr'])
@@ -45,6 +48,8 @@ def _request_currencies():
     opener.addheaders = [('User-Agent', 'telegram:nanobot:0.6 (https://github.com/nev3rfail/telegram-nanobot)')]
     try:
         response = opener.open("https://www.cbr-xml-daily.ru/daily_json.js", timeout=5)
+        if debug:
+            print(response.info())
         rmsg = response.read()
         stack = json.loads(rmsg)
     except Exception as e:
