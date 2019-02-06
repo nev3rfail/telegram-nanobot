@@ -2,7 +2,7 @@
 from telebot import types
 
 def register(bot):
-    print "Loading vertical text plugin"
+    print "Loading vertical text plugin..."
     @bot.channel_post_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
     @bot.message_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
     @bot.message_handler(commands=['vertical', 'vert'])
