@@ -15,7 +15,7 @@ def register(bot):
         args = parse_args(msg.text)
         if args:
             args['result'] = str(round(currency_convert(args['amount'], args['from'], args['to']), 2))
-            bot.reply_to(msg, "{amount} {from} = `{result}` {to}".format(** args), parse_mode="Markdown")
+            bot.reply_to(msg, "{amount} {from} = `{result}` {to}".format( ** args), parse_mode="Markdown")
 
 
 def parse_args(text, inline=False):
@@ -45,7 +45,6 @@ def _request_currencies():
     opener.addheaders = [('User-Agent', 'telegram:nanobot:0.6 (https://github.com/nev3rfail/telegram-nanobot)')]
     try:
         response = opener.open("https://www.cbr-xml-daily.ru/daily_json.js", timeout=5)
-        print(response.info())
         rmsg = response.read()
         stack = json.loads(rmsg)
     except Exception as e:
@@ -80,7 +79,7 @@ def handle_inline(msg):
     args = parse_args(msg, True)
     if args:
         args['result'] = str(round(currency_convert(args['amount'], args['from'], args['to']), 2))
-        return types.InlineQueryResultArticle('12', '!convert', types.InputTextMessageContent("{amount} {from} = `{result}` {to}".format(** args), parse_mode="Markdown"))
+        return types.InlineQueryResultArticle('12', '!convert', types.InputTextMessageContent("{amount} {from} = `{result}` {to}".format( ** args), parse_mode="Markdown"))
 
 
 
