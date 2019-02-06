@@ -1,0 +1,5 @@
+{
+    "telegram_token": "YOUR TOKEN AQUIRED FROM https://t.me/@botfather",
+    "plugins": ["hello"]
+    "debug": true,
+}
