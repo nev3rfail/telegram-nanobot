@@ -28,5 +28,12 @@ def do_vertical(msg):
         spaces += "  "
     return sb
 
+def helpmsg():
+    return """`!vertical text` to make fancy text
+    Short variant is `!vert`;
+    Supported as bot private message;
+    Supports `inline` mode."""
+
+
 def handle_inline(msg):
     return types.InlineQueryResultArticle('1', '!vert', types.InputTextMessageContent("```\n" + do_vertical(msg) + "```", parse_mode="Markdown"))
