@@ -28,6 +28,7 @@ def do_vertical(msg):
         spaces += "  "
     return sb
 
+
 def helpmsg():
     return """`!vertical text` to make fancy text
     Short variant is `!vert`;
