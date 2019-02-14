@@ -1,20 +1,19 @@
 #encoding: UTF-8
 from telebot import types
 
-
-def register(** kwargs):
+def register(bot, listen=True, ** kwargs):
     print("Loading vertical text plugin...")
-    bot = kwargs['bot']
-    @bot.channel_post_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
-    @bot.message_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
-    @bot.message_handler(commands=['vertical', 'vert'])
-    @bot.channel_post_handler(commands=['vertical', 'vert'])
-    def vertical(msg):
-        msgs = msg.text.split(" ")
-        msgs.pop(0)
-        message = " ".join(msgs)
-        if len(message):
-            bot.send_message(msg.chat.id, "```\n" + do_vertical(message) + "```", parse_mode="Markdown")
+    if listen:
+        @bot.channel_post_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
+        @bot.message_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
+        @bot.message_handler(commands=['vertical', 'vert'])
+        @bot.channel_post_handler(commands=['vertical', 'vert'])
+        def vertical(msg):
+            msgs = msg.text.split(" ")
+            msgs.pop(0)
+            message = " ".join(msgs)
+            if len(message):
+                bot.send_message(msg.chat.id, "```\n" + do_vertical(message) + "```", parse_mode="Markdown")
 
 
 def do_vertical(msg):
