@@ -1,10 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # encoding=utf8
+import argparse
 import importlib
 import json
 import os
 import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--config', help='Relative path to bot\'s configuration file. Defaults to config.json inside workdir.', default="config.json")
+cmdline = parser.parse_args()
+
+#for arg in vars(args):
+#    setattr(config, arg, getattr(args, arg))
+
 
 bot_path = os.path.dirname(os.path.abspath(__file__))
 """We use patched pytelegrambotapi here with sendAnimation and video previews"""
@@ -13,7 +22,7 @@ if os.path.isdir(bot_path + '/../pyTelegramBotAPI'):
 import telebot as telebot
 
 
-with open(bot_path + '/config.json') as json_file:
+with open(bot_path + '/' + cmdline.config) as json_file:
     config = json.loads(json_file.read())
 
 
