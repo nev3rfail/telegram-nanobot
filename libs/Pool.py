@@ -4,7 +4,7 @@
 from collections import namedtuple
 import time
 
-class Stupidcache:
+class Pool:
     def __init__(self, update_function=None, ttl=36000):
         self.update_function = update_function
         self.ttl = ttl
