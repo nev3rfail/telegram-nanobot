@@ -42,6 +42,19 @@ if len(config['plugins']):
             print("Cannot load plugin {}".format(plugin), e)
 
 
+"""Help handler"""
+@bot.channel_post_handler(func=lambda m: m.text == "!help")
+@bot.message_handler(func=lambda m: m.text == "!help")
+def helpmsg(message):
+    response = []
+    for name, plugin in loaded.iteritems():
+        if hasattr(plugin, "helpmsg"):
+            result = plugin.helpmsg()
+            if result:
+                response.append(result)
+    bot.send_message(message.chat.id, "\n".join(response), parse_mode="Markdown")
+
+
 """Fallback inline handler loops through plugins and tries to get result to reply"""
 @bot.inline_handler(lambda query: True)
 def query_text(inline_query):
