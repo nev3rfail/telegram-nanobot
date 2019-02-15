@@ -17,7 +17,7 @@ class Pool:
         now = int(time.time())
         refill = False
         if now > self.pool.created + self.ttl:
-            print "TTL reached, refill required."
+            print("TTL reached, refill required.")
             refill = True
 
         if refill and not self.in_progress:
