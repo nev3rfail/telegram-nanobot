@@ -1,31 +1,21 @@
 
-import threading
-lock = threading.Lock()
 class DB:
     def __init__(self, dbpath):
         import sqlite3
         self.dbconnection = sqlite3.connect(dbpath, check_same_thread=False)
         self.dbconnection.row_factory = sqlite3.Row
-        self.dbcursor = self.dbconnection.cursor()
 
     def query(self, * args, ** kwargs):
+        #https://docs.python.org/3/library/sqlite3.html#sqlite3.Connection.execute
         if len(args) == 2:
-            try:
-                lock.acquire(True)
-                self.dbcursor.execute(args[0], args[1])
-            finally:
-                lock.release()
+            cursor = self.dbconnection.execute(args[0], args[1])
         else:
-            try:
-                lock.acquire(True)
-                self.dbcursor.execute(args[0])
-            finally:
-                lock.release()
-        
-        if self.dbcursor.rowcount != -1:
-            return self.dbcursor.rowcount
+            cursor = self.dbconnection.execute(args[0])
+
+        if cursor.rowcount != -1:
+            return cursor.rowcount
         else:
-            return self.dbcursor.fetchall()
+            return cursor.fetchall()
 
 
     def commit(self):
