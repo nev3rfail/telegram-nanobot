@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # encoding=utf8
 import argparse
@@ -21,7 +21,6 @@ if os.path.isdir(bot_path + '/../pyTelegramBotAPI'):
     sys.path.insert(0, bot_path + '/../pyTelegramBotAPI')
 import telebot as telebot
 
-
 with open(bot_path + '/' + cmdline.config) as json_file:
     config = json.loads(json_file.read())
 
@@ -34,12 +33,12 @@ bot = telebot.TeleBot(config['telegram_token'])
 sys.path.append(bot_path + '/plugins')
 loaded = {}
 if len(config['plugins']):
-    for plugin, plugin_config in config['plugins'].iteritems():
+    for plugin, plugin_config in config['plugins'].items():
         try:
             loaded[plugin] = importlib.import_module(plugin)
             loaded[plugin].register(bot=bot, config=plugin_config, debug=config['debug'])
         except Exception as e:
-            print("Cannot load plugin {}".format(plugin), e)
+            print("Cannot load plugin {}:".format(plugin), e)
 
 
 """Help handler"""
