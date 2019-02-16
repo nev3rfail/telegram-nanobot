@@ -36,7 +36,7 @@ if "database" in config:
 if __name__ != "__main__":
     raise Exception("This file should be executed, not imported.")
 
-bot = telebot.TeleBot(config['telegram_token'])
+bot = telebot.TeleBot(config['telegram_token'], threaded=False)
 
 sys.path.append(bot_path + '/plugins')
 loaded = {}
