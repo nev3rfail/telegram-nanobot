@@ -6,8 +6,8 @@ from telebot import types
 
 def register(bot, listen=True, ** kwargs):
     if listen:
-        @bot.channel_post_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
-        @bot.message_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
+        @bot.channel_post_handler(regexp="^!vertical |^!vert ")
+        @bot.message_handler(regexp="^!vertical |^!vert ")
         @bot.message_handler(commands=['vertical', 'vert'])
         @bot.channel_post_handler(commands=['vertical', 'vert'])
         def vertical(msg):

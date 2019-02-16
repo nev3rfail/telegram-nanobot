@@ -58,8 +58,10 @@ if len(config['plugins']):
 
 
 """Help handler"""
-@bot.channel_post_handler(func=lambda m: m.text == "!help")
-@bot.message_handler(func=lambda m: m.text == "!help")
+@bot.channel_post_handler(regexp="^!help ")
+@bot.message_handler(regexp="^!help ")
+@bot.message_handler(commands=['help'])
+@bot.channel_post_handler(commands=['help'])
 def helpmsg(message):
     response = []
     for name, plugin in loaded.items():
