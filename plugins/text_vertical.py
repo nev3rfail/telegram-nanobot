@@ -1,8 +1,10 @@
 #encoding: UTF-8
+
+__plugin_name__ = "Vertical fancy text"
+
 from telebot import types
 
 def register(bot, listen=True, ** kwargs):
-    print("Loading vertical text plugin...")
     if listen:
         @bot.channel_post_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
         @bot.message_handler(func=lambda m: m.text.startswith("!vertical ") or m.text.startswith('!vert '))
