@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # encoding=utf8
 import argparse
+from helpers.db import connection
 import importlib
 import json
 import os
@@ -23,6 +24,13 @@ import telebot as telebot
 
 with open(bot_path + '/' + cmdline.config) as json_file:
     config = json.loads(json_file.read())
+
+"""Initialize database"""
+if "database" in config:
+    try:
+        connection(config['database'])
+    except Exception as e:
+        print("Cannot initialize database:", e)
 
 
 if __name__ != "__main__":

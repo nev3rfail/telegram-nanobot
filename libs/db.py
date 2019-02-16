@@ -1,7 +1,6 @@
-
-class DB:
+import sqlite3
+class Database:
     def __init__(self, dbpath):
-        import sqlite3
         self.dbconnection = sqlite3.connect(dbpath, check_same_thread=False)
         self.dbconnection.row_factory = sqlite3.Row
 
