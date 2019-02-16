@@ -48,7 +48,7 @@ if len(config['plugins']):
             plugin_config = {}
         try:
             loaded[plugin] = importlib.import_module(plugin)
-            if hasattr(loaded[plugin], '__plugin_name_'):
+            if hasattr(loaded[plugin], '__plugin_name__'):
                 print("Loaded", loaded[plugin].__plugin_name__, "plugin.")
             else:
                 print("Loaded", plugin)
