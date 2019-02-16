@@ -1,5 +1,10 @@
 {
-    "telegram_token": "YOUR TOKEN AQUIRED FROM https://t.me/@botfather",
-    "plugins": ["hello"]
+    "telegram_token": "YOUR TOKEN ACQUIRED FROM https://t.me/@botfather",
+    "plugins": ["hello"],
+    "plugin_config":{
+        "hello":{
+            "text":"Hello, world from config"
+        }
+    },
     "debug": true,
 }

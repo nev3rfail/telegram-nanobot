@@ -41,7 +41,11 @@ bot = telebot.TeleBot(config['telegram_token'], threaded=False)
 sys.path.append(bot_path + '/plugins')
 loaded = {}
 if len(config['plugins']):
-    for plugin, plugin_config in config['plugins'].items():
+    for plugin in config['plugins']:
+        if plugin in config['plugin_config']:
+            plugin_config = config['plugin_config'][plugin]
+        else:
+            plugin_config = {}
         try:
             loaded[plugin] = importlib.import_module(plugin)
             loaded[plugin].register(bot=bot, config=plugin_config, debug=config['debug'])
