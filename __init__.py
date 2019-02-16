@@ -62,7 +62,7 @@ if len(config['plugins']):
 @bot.message_handler(func=lambda m: m.text == "!help")
 def helpmsg(message):
     response = []
-    for name, plugin in loaded.iteritems():
+    for name, plugin in loaded.items():
         if hasattr(plugin, "helpmsg"):
             result = plugin.helpmsg()
             if result:
@@ -78,7 +78,7 @@ def query_text(inline_query):
         message = " ".join(msgs)
         if len(message):
             choices = []
-            for name, plugin in loaded.iteritems():
+            for name, plugin in loaded.items():
                 if hasattr(plugin, "handle_inline"):
                     result = plugin.handle_inline(message)
                     if result:
