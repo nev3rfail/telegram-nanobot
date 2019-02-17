@@ -8,13 +8,8 @@ import shlex
 db = connection()
 
 def register(bot, listen=True, ** kwargs):
-    try:
-        db.query("select id from reactions limit 1")
-    except Exception as e:
-        print("Reactions init error:", e)
-        print("Creating table...")
-        db.query("""
-CREATE TABLE `reactions` (
+    db.query("""
+CREATE TABLE IF NOT EXISTS `reactions` (
     `id`	INTEGER PRIMARY KEY AUTOINCREMENT,
     `chat_id`	INTEGER,
     `trigger`	TEXT,
