@@ -1,7 +1,7 @@
 #encoding: UTF-8
 
 __plugin_name__ = "Layout changing plugin [en<->ru]"
-import instance.bot
+import helpers.bot
 import sys
 if sys.version_info[0] < 3:
     import sys
