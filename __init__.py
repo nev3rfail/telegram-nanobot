@@ -17,10 +17,16 @@ cmdline = parser.parse_args()
 
 
 bot_path = os.path.dirname(os.path.abspath(__file__))
-"""We use patched pytelegrambotapi here with sendAnimation and video previews"""
-if os.path.isdir(bot_path + '/../pyTelegramBotAPI'):
-    sys.path.insert(0, bot_path + '/../pyTelegramBotAPI')
+"""We use patched pytelegrambotapi here
+with sendAnimation
+and video previews
+and fancy user-controller loop
+and other things
+"""
+if os.path.isdir(bot_path + '/../pyTelegramBotAPI_fancy'):
+    sys.path.insert(0, bot_path + '/../pyTelegramBotAPI_fancy')
 import telebot as telebot
+telebot.util.TELEBOT_DEFAULT_BREAK = False
 
 with open(bot_path + '/' + cmdline.config) as json_file:
     config = json.loads(json_file.read())
@@ -36,7 +42,7 @@ if "database" in config:
 if __name__ != "__main__":
     raise Exception("This file should be executed, not imported.")
 
-bot = telebot.TeleBot(config['telegram_token'], threaded=False)
+bot = telebot.TeleBot(config['telegram_token'], threaded=True)
 
 sys.path.append(bot_path + '/plugins')
 loaded = {}

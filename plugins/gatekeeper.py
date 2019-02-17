@@ -16,8 +16,8 @@ def register(bot, config={}, ** kwargs):
         _mode = "force"
 
     print("Gatekeeper is in", _mode, "mode.")
-    @bot.channel_post_handler(func=lambda m: True)
-    @bot.message_handler(func=lambda m: True)
+    @bot.channel_post_handler(func=lambda m: True, blocking=True)
+    @bot.message_handler(func=lambda m: True, blocking=True)
     def whoru(msg):
         if _mode == "force":
             t = msg.text.split('@')[0]
