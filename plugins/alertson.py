@@ -3,10 +3,12 @@
 __plugin_name__ = "Alerts"
 
 """Skype-style /alertson and /alertsoff"""
+import helpers.bot
 from plugins.reactions import add_reaction
 from plugins.reactions import delete_trigger
 import shlex
-def register(bot, ** kwargs):
+def register(** kwargs):
+    bot = helpers.bot.instance()
     @bot.channel_post_handler(regexp="^!alertson ")
     @bot.message_handler(regexp="^!alertson ")
     def alertson(msg):

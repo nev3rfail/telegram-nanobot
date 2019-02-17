@@ -55,7 +55,7 @@ if len(config['plugins']):
                 print("Loaded", loaded[plugin].__plugin_name__, "plugin.")
             else:
                 print("Loaded", plugin)
-            loaded[plugin].register(bot=bot, config=plugin_config, debug=config['debug'])
+            loaded[plugin].register(config=plugin_config, debug=config['debug'])
         except Exception as e:
             print("Cannot load plugin {}:".format(plugin), e)
 

@@ -1,11 +1,12 @@
 #encoding: UTF-8
 
 __plugin_name__ = "Vertical fancy text"
-
+import helpers.bot
 from telebot import types
 
-def register(bot, listen=True, ** kwargs):
+def register(listen=True, ** kwargs):
     if listen:
+        bot = helpers.bot.instance()
         @bot.channel_post_handler(regexp="^!vertical |^!vert ")
         @bot.message_handler(regexp="^!vertical |^!vert ")
         @bot.message_handler(commands=['vertical', 'vert'])

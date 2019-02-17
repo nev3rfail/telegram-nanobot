@@ -2,15 +2,17 @@
 
 __plugin_name__ = "Currency converter"
 
+import helpers.bot
 import json
 from libs.caching import Pool
 from telebot import types
 import urllib.request
 
 _debug = False
-def register(bot, debug=False, listen=True, ** kwargs):
+def register(debug=False, listen=True, ** kwargs):
     _debug = debug
     if listen:
+        bot = helpers.bot.instance()
         @bot.channel_post_handler(regexp="^!convert |^!conv |^!curr ")
         @bot.message_handler(regexp="^!convert |^!conv |^!curr ")
         @bot.message_handler(commands=['convert', 'curr', 'conv'])

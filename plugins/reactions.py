@@ -2,12 +2,13 @@
 
 __plugin_name__ = "Message reactions"
 
+import helpers.bot
 from helpers.db import connection
 import re
 import shlex
 db = connection()
 
-def register(bot, listen=True, ** kwargs):
+def register(listen=True, ** kwargs):
     db.query("""
 CREATE TABLE IF NOT EXISTS `reactions` (
     `id`	INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `reactions` (
 """)
 
     if listen:
+        bot = helpers.bot.instance()
         @bot.message_handler(func=lambda m: True)
         @bot.channel_post_handler(func=lambda m: True)
         def react(msg):

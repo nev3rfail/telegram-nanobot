@@ -1,6 +1,7 @@
 #encoding: UTF-8
 
 __plugin_name__ = "Layout changing plugin [en<->ru]"
+import instance.bot
 import sys
 if sys.version_info[0] < 3:
     import sys
@@ -8,8 +9,9 @@ if sys.version_info[0] < 3:
     sys.setdefaultencoding('utf8')
 from telebot import types
 
-def register(bot, listen=True, ** kwargs):
+def register(listen=True, ** kwargs):
     if listen:
+        bot = helpers.bot.instance()
         @bot.channel_post_handler(regexp="^!relayout|^!fuck")
         @bot.message_handler(regexp="^!relayout|^!fuck")
         @bot.message_handler(commands=['relayout', 'fuck'])

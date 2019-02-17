@@ -1,4 +1,5 @@
 #encoding: UTF-8
+import helpers.bot
 from helpers.db import connection
 import json
 db = connection()
@@ -9,7 +10,8 @@ It alters telebot's message.chat if chat is known.
 Force mode works only with patched telebot.
 """
 __plugin_name__ = "Bot gatekeeper"
-def register(bot, config={}, ** kwargs):
+def register(config={}, ** kwargs):
+    bot = helpers.bot.instance()
     db.query("""
     CREATE TABLE IF NOT EXISTS `chats` (
 	`chat_id`	INTEGER,

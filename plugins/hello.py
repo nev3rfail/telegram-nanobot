@@ -1,9 +1,12 @@
 #encoding: UTF-8
 
+import helpers.bot
+
 __plugin_name__ = "Dummy hello"
 
-def register(bot, listen=True, config={}, ** kwargs):
+def register(listen=True, config={}, ** kwargs):
     if listen:
+        bot = helpers.bot.instance()
         @bot.channel_post_handler(regexp="^!hello$")
         @bot.message_handler(regexp="^!hello$")
         @bot.message_handler(commands=['hello'])
