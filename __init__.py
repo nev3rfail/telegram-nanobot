@@ -3,7 +3,7 @@
 # encoding=utf8
 import argparse
 import helpers.bot
-from helpers.db import connection
+import helpers.db
 import importlib
 import json
 import os
@@ -31,7 +31,7 @@ with open(bot_path + '/' + cmdline.config) as json_file:
 """Initialize database"""
 if "database" in config:
     try:
-        connection(config['database'])
+        helpers.db.connection(config['database'])
     except Exception as e:
         print("Cannot initialize database:", e)
 
