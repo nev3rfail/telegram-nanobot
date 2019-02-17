@@ -64,8 +64,8 @@ if len(config['plugins']):
 
 
 """Help handler"""
-@bot.channel_post_handler(regexp="^!help ")
-@bot.message_handler(regexp="^!help ")
+@bot.channel_post_handler(regexp="^!help$|^!help ")
+@bot.message_handler(regexp="^!help$|^!help ")
 @bot.message_handler(commands=['help'])
 @bot.channel_post_handler(commands=['help'])
 def helpmsg(message):
