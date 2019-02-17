@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # encoding=utf8
 import argparse
+import helpers.bot
 from helpers.db import connection
 import importlib
 import json
@@ -23,10 +24,6 @@ and video previews
 and fancy user-controller loop
 and other things
 """
-if os.path.isdir(bot_path + '/../pyTelegramBotAPI_fancy'):
-    sys.path.insert(0, bot_path + '/../pyTelegramBotAPI_fancy')
-import telebot as telebot
-telebot.util.TELEBOT_DEFAULT_BREAK = False
 
 with open(bot_path + '/' + cmdline.config) as json_file:
     config = json.loads(json_file.read())
@@ -42,7 +39,7 @@ if "database" in config:
 if __name__ != "__main__":
     raise Exception("This file should be executed, not imported.")
 
-bot = telebot.TeleBot(config['telegram_token'], threaded=True)
+bot = helpers.bot.instance(token=config['telegram_token'], bot_path=bot_path, threaded=True)
 
 sys.path.append(bot_path + '/plugins')
 loaded = {}
