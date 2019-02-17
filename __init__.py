@@ -39,7 +39,7 @@ if "database" in config:
 if __name__ != "__main__":
     raise Exception("This file should be executed, not imported.")
 
-bot = helpers.bot.instance(token=config['telegram_token'], bot_path=bot_path, threaded=True)
+bot = helpers.bot.instance(token=config['telegram_token'], threaded=True)
 
 sys.path.append(bot_path + '/plugins')
 loaded = {}
