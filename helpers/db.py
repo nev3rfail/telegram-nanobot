@@ -1,13 +1,13 @@
 from libs.db import Database
 
-_connection = None
+_instance = None
 
-def connection(dbpath=None):
-    global _connection
-    if not _connection:
+def instance(dbpath=None):
+    global _instance
+    if not _instance:
         if dbpath:
-            _connection = Database(dbpath)
+            _instance = Database(dbpath)
             print("Database connected")
         else:
             raise ValueError("No database connection.")
-    return _connection
+    return _instance

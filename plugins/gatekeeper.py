@@ -1,8 +1,8 @@
 #encoding: UTF-8
 import helpers.bot
-from helpers.db import connection
+import helpers.db
 import json
-db = connection()
+db = helpers.db.instance()
 """
 Note: this plugin should be loaded before any other.
 It stops bot from executing any further command if chat is unknown;

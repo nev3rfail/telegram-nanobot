@@ -3,10 +3,10 @@
 __plugin_name__ = "Message reactions"
 
 import helpers.bot
-from helpers.db import connection
+import helpers.db
 import re
 import shlex
-db = connection()
+db = helpers.db.instance()
 
 def register(listen=True, ** kwargs):
     db.query("""

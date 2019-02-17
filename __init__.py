@@ -31,7 +31,7 @@ with open(bot_path + '/' + cmdline.config) as json_file:
 """Initialize database"""
 if "database" in config:
     try:
-        helpers.db.connection(config['database'])
+        helpers.db.instance(config['database'])
     except Exception as e:
         print("Cannot initialize database:", e)
 
