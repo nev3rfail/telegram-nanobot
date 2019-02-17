@@ -1,6 +1,6 @@
 #encoding: UTF-8
 
-__plugin_name__ = "Layout changing plugin [en<->ru]"
+__plugin_name__ = "Layout changing [en<->ru]"
 import helpers.bot
 import sys
 if sys.version_info[0] < 3:
