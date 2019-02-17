@@ -10,14 +10,23 @@ Force mode works only with patched telebot.
 """
 __plugin_name__ = "Bot gatekeeper"
 def register(bot, config={}, ** kwargs):
+    db.query("""
+    CREATE TABLE IF NOT EXISTS `chats` (
+	`chat_id`	INTEGER,
+	`settings`	TEXT DEFAULT '{}',
+	`date_added`	TEXT DEFAULT CURRENT_TIMESTAMP,
+	`deleted`	INTEGER DEFAULT 0,
+	PRIMARY KEY(`chat_id`)
+);
+    """)
     if "mode" in config and config["mode"] in ["force", "auto"]:
         _mode = config["mode"]
     else:
         _mode = "force"
 
     print("Gatekeeper is in", _mode, "mode.")
-    @bot.channel_post_handler(func=lambda m: True, blocking=True)
-    @bot.message_handler(func=lambda m: True, blocking=True)
+    @bot.channel_post_handler(func=lambda m: True, blocking=True, final=False)
+    @bot.message_handler(func=lambda m: True, blocking=True, final=False)
     def whoru(msg):
         if _mode == "force":
             t = msg.text.split('@')[0]
