@@ -1,6 +1,6 @@
 import telebot
 
-telebot.util.TELEBOT_DEFAULT_BREAK = True
+telebot.util.TELEBOT_DEFAULT_BREAK = False
 _bot = None
 
 def instance(token=None, ** kwargs):
