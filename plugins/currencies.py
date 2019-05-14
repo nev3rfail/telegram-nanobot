@@ -104,10 +104,16 @@ def helpmsg():
 
 
 def handle_inline(msg):
-    args = parse_args(msg, True)
-    if args:
-        args['result'] = str(round(currency_convert(args['amount'], args['from'], args['to']), 2))
-        return types.InlineQueryResultArticle('12', '!convert', types.InputTextMessageContent("{amount} {from} = `{result}` {to}".format(** args), parse_mode="Markdown"))
+    try:
+        try:
+            args = parse_args(msg, True)
+        except ValueError:
+            args = False
+        if args:
+            args['result'] = str(round(currency_convert(args['amount'], args['from'], args['to']), 2))
+            return types.InlineQueryResultArticle('12', '!convert', types.InputTextMessageContent("{amount} {from} = `{result}` {to}".format(** args), parse_mode="Markdown"))
+    except Exception as e:
+        print(e)
 
 
 
