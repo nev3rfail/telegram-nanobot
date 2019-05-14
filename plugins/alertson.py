@@ -14,6 +14,7 @@ def register(** kwargs):
     def alertson(msg):
         if not msg.from_user:
             bot.send_message(msg.chat.id, "Works only in groups.")
+            return
         segs = shlex.split(msg.text)
         segs.pop(0)
         if len(segs):
@@ -25,6 +26,7 @@ def register(** kwargs):
     def alertsoff(msg):
         if not msg.from_user:
             bot.send_message(msg.chat.id, "Works only in groups.")
+            return
         segs = shlex.split(msg.text)
         segs.pop(0)
         if len(segs):
