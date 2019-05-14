@@ -4,6 +4,7 @@
 import argparse
 import helpers.bot
 import helpers.db
+import helpers.timer
 import importlib
 import json
 import os
@@ -34,6 +35,8 @@ if "database" in config:
         helpers.db.instance(config['database'])
     except Exception as e:
         print("Cannot initialize database:", e)
+
+timer = helpers.timer.instance(1)
 
 
 if __name__ != "__main__":
@@ -96,5 +99,12 @@ def query_text(inline_query):
             else:
                 return
 
+try:
+    bot.polling()
+except Exception as e:
+    print("Exception", e)
+    pass
+finally:
+    timer.stop()
+    exit(0)
 
-bot.polling()
