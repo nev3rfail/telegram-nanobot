@@ -17,7 +17,7 @@ def replace_multiple(what, where, real_where=False):
                 where = where.replace(lwhat, '')
 
     elif type(what) is dict:
-        for i, j in what.iteritems():
+        for i, j in what.items():
             where = where.replace(i, j)
     elif type(what) is list:
         for _from, to in what:
