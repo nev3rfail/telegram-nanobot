@@ -34,7 +34,7 @@ def do_vertical(msg):
 
 def helpmsg():
     return """`!vertical text` to make fancy text
-    Short variant is `!vert`;
+    Alias: `!vert`;
     Supported as bot private message;
     Supports `inline` mode."""
 
