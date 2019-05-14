@@ -7,4 +7,6 @@
         }
     },
     "debug": true,
+    "database":"db.sqlite",
+    "database_autocommit":true
 }
