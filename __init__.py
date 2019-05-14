@@ -32,7 +32,11 @@ with open(bot_path + '/' + cmdline.config) as json_file:
 """Initialize database"""
 if "database" in config:
     try:
-        helpers.db.instance(config['database'])
+        if 'database_autocommit' in config:
+            autocommit = config['database_autocommit']
+        else:
+            autocommit = False
+        helpers.db.instance(config['database'], autocommit)
     except Exception as e:
         print("Cannot initialize database:", e)
 
