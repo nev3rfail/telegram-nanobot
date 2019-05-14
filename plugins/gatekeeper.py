@@ -31,7 +31,7 @@ def register(config={}, ** kwargs):
     @bot.message_handler(func=lambda m: True, blocking=True, final=False, content_types=['photo', 'audio', 'video', 'document', 'text', 'location', 'contact', 'sticker'])
     def whoru(msg):
         if _mode == "force":
-            t = msg.text.split('@')[0]
+            t = (msg.text or '').split('@')[0]
             if t in ['!start', '/start']:
                 #do registration
                 try:
@@ -44,7 +44,7 @@ def register(config={}, ** kwargs):
                 if not chat:
                     print("Unknown chat", msg.chat.id, "-- eating all.")
                 else:
-                    msg.chat.nanobot_chat_data = chat
+                    msg.chat.gatekeeper_chat_data = chat
                     return
             return -256
 
@@ -53,7 +53,7 @@ def register(config={}, ** kwargs):
             if not chat:
                 print("Unknown chat", msg.chat.id, "-- registering chat.")
                 chat = register_chat(msg.chat.id)
-            msg.chat.nanobot_chat_data = chat
+            msg.chat.gatekeeper_chat_data = chat
 
 
 def get_chat(chat_id):
@@ -74,6 +74,11 @@ def set_setting(chat_id, k, v):
     if chat:
         chat['settings'][k] = v
         return set_chat(chat_id, chat['settings'])
+
+def get_setting(chat_id, k):
+    chat = get_chat(chat_id)
+    if chat:
+        return chat['settings'].get(k)
 
 def register_chat(chat_id):
     db.query("insert into chats(chat_id) VALUES (?)", [chat_id])
