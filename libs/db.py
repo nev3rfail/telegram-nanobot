@@ -1,6 +1,6 @@
 import sqlite3
 class Database:
-    def __init__(self, dbpath):
+    def __init__(self, dbpath, autocommit=True):
         self.dbconnection = sqlite3.connect(dbpath, check_same_thread=False)
         self.dbconnection.row_factory = sqlite3.Row
 
@@ -17,8 +17,12 @@ class Database:
             cursor = self.dbconnection.execute(args[0])
 
         if get_id and cursor.lastrowid:
+            if autocommit:
+                self.commit()
             return cursor.lastrowid
         elif cursor.rowcount != -1:
+            if autocommit:
+                self.commit()
             return cursor.rowcount
         else:
             return cursor.fetchall()
