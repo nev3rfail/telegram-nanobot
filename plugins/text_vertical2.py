@@ -19,9 +19,9 @@ def register(listen=True, ** kwargs):
                 bot.send_message(msg.chat.id, do_vertical(message), parse_mode="Markdown")
 
 
-def do_vertical(msg):
-    word = msg
-    l = len(msg)
+def do_vertical(word):
+    msg = ""
+    l = len(word)
     for index, char in enumerate(word):
         if index == 0:
             fst = "."
