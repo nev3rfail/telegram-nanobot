@@ -51,4 +51,4 @@ def helpmsg():
 
 
 def handle_inline(msg):
-    return types.InlineQueryResultArticle('1', '!vert2', types.InputTextMessageContent(do_vertical(msg), parse_mode="Markdown"))
+    return types.InlineQueryResultArticle('990', '!vert2', types.InputTextMessageContent(do_vertical(msg), parse_mode="Markdown"))
