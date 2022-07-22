@@ -72,9 +72,12 @@ def get_reactions(chat_id, text):
     rlist = get_chat_reactions(chat_id)
     found = []
     for reaction, trigger in rlist.items():
-        f = re.search(trigger, text, re.IGNORECASE)
-        if f is not None:
-            found.append(reaction)
+        try:
+            f = re.search(trigger, text, re.IGNORECASE)
+            if f is not None:
+                found.append(reaction)
+        except Exception:
+            return
     return found
 
 
