@@ -77,7 +77,7 @@ def get_reactions(chat_id, text):
             if f is not None:
                 found.append(reaction)
         except Exception:
-            return
+            return []
     return found
 
 
