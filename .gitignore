@@ -3,3 +3,10 @@
 *.sqlite
 *.sqlite-journal
 telebot
+telebot_src
+build
+dist
+__init__.spec
+.google-cookie
+.idea
+venv*

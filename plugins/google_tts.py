@@ -11,7 +11,9 @@ __plugin_name__ = "Google TTS"
 
 from plugins.google_translate import translate_client
 
-from google.cloud import texttospeech
+from google.cloud import texttospeech_v1 as texttospeech
+
+from telebot.apihelper import ApiException
 
 try:
     tts_client = texttospeech.TextToSpeechClient.from_service_account_json(google_json)
@@ -25,8 +27,8 @@ commands = "^!tts$|^!tts "
 def register(listen=True, config={}, ** kwargs):
     if listen:
         bot = helpers.bot.instance()
-        @bot.channel_post_handler(regexp=commands)
-        @bot.message_handler(regexp=commands)
+        @bot.channel_post_handler(regexp=commands, final=True)
+        @bot.message_handler(regexp=commands, final=True)
         def ev_tts(msg):
             text = msg.text or msg.caption
             text = re.sub(commands, '', text)
@@ -87,7 +89,10 @@ def register(listen=True, config={}, ** kwargs):
 
                 audio = tts(text, lang)
                 if audio:
-                    bot.send_voice(call.message.chat.id, voice=BytesIO(audio), caption=text)#, reply_to_message_id=msg.message_id)
+                    try:
+                        bot.send_voice(call.message.chat.id, voice=BytesIO(audio), caption=text)#, reply_to_message_id=msg.message_id)
+                    except ApiException as e:
+                        bot.reply_to(call.message, e.result)
                 else:
                     bot.reply_to(call.message, "Функционал недоступен или нет синтезатора для {lang}".format(lang=lang))
                 #write_vote(poll_id, answer_id, call.from_user.id, call.from_user.username, poll['is_multi'])
@@ -143,10 +148,10 @@ def tts(text, lang):
     try:
         if tts_client:
             synthesis_input = texttospeech.types.SynthesisInput(text=text)
-            voice = texttospeech.types.VoiceSelectionParams(language_code=lang, ssml_gender=texttospeech.enums.SsmlVoiceGender.FEMALE)
-            audio_config = texttospeech.types.AudioConfig(audio_encoding=texttospeech.enums.AudioEncoding.OGG_OPUS)
+            voice = texttospeech.types.VoiceSelectionParams(language_code=lang, ssml_gender=texttospeech.types.SsmlVoiceGender.FEMALE)
+            audio_config = texttospeech.types.AudioConfig(audio_encoding=texttospeech.AudioEncoding.OGG_OPUS)
 
-            response = tts_client.synthesize_speech(synthesis_input, voice, audio_config)
+            response = tts_client.synthesize_speech(input=synthesis_input, voice=voice, audio_config=audio_config)
             return response.audio_content
         else:
             return False

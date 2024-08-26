@@ -1,4 +1,4 @@
-from libs.db import Database
+from libs.Database import Database
 
 _instance = None
 

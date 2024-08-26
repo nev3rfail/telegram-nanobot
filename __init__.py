@@ -104,7 +104,8 @@ def query_text(inline_query):
                 return
 
 try:
-    bot.polling()
+    bot.polling(interval=3)
+    pass
 except Exception as e:
     print("Exception", e)
     pass
