@@ -78,11 +78,10 @@ def register(listen=True, config={}, **kwargs):
                     set_setting(message.chat.id, "chat_mode", param)
                     bot.send_message(message.chat.id, f"Chat mode set to {param}")
                 elif action == "pair":
-                    pair = param.split(" ")
-                    if pair[0] in google_languages and pair[1] in google_languages:
-                        set_setting(message.chat.id, "default_to", pair[1])
-                        set_setting(message.chat.id, "default_to_if_from_is_to", pair[0])
-                        bot.send_message(message.chat.id, f"Language pair set to {pair[0]}<->{pair[1]}")
+                    if segs[3] in google_languages and segs[2] in google_languages:
+                        set_setting(message.chat.id, "default_to", segs[2])
+                        set_setting(message.chat.id, "default_to_if_from_is_to", segs[3])
+                        bot.send_message(message.chat.id, f"Language pair set to {segs[2]}<->{segs[3]}")
                     else:
                         bot.send_message(message.chat.id, f"Invalid pair")
                 elif action == "dump":
